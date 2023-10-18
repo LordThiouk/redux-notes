@@ -1,0 +1,40 @@
+run = "npm run start"
+entrypoint = "src/main.jsx"
+
+hidden = [".config", ".gitignore"]
+
+[nix]
+channel = "stable-22_11"
+
+
+[env]
+PATH = "/home/runner/$REPL_SLUG/.config/npm/node_global/bin:/home/runner/$REPL_SLUG"
+XDG_CONFIG_HOME = "/home/runner/.config"
+npm_config_prefix = "/home/runner/$REPL_SLUG/.config/npm/node_global"
+
+[gitHubImport]
+requiredFiles = [".replit", "replit.nix", ".config", "package.json", "package-lock.json"]
+
+[packager]
+language = "nodejs"
+  [packager.features]
+  packageSearch = true
+  guessImports = true
+  enabledForHosting = false
+
+
+
+[unitTest]
+language = "jest"
+
+
+[languages]
+  [languages.javascript]
+  pattern = "**/{*.js,*.jsx,*.ts,*.tsx}"
+    [languages.javascript.languageServer]
+    start = "typescript-language-server --stdio"
+
+[deployment]
+deploymentTarget = "static"
+build = ["npm", "run", "build"]
+publicDir = "dist"
